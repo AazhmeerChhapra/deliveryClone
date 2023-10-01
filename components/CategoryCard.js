@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 
 
 const CategoryCard = ({ imgUrl, title }) => {
+    
     return (
         <TouchableOpacity className="relative h-30 w-30 mr-2">
             <Image 

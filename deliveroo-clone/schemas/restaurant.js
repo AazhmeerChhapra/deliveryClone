@@ -51,7 +51,7 @@ export default defineType({
       .error("Please enter a value between 1 and 5"),
     }),
     defineField({
-      name: 'type',
+      name: 'category',
       title: 'Category',
       validation: (Rule) => Rule.required(),
       type: 'reference',

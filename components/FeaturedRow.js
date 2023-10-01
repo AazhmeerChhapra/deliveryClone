@@ -25,7 +25,7 @@ const FeaturedRow = ({id,title, description}) => {
                         restaurants [] -> {
                           ...,
                           dishes [] ->,
-                          type [] ->{
+                          categories [] ->{
                           name
                           }
                         },
@@ -64,14 +64,15 @@ console.log(restaurants);
         >
 {/* Restaurant cards... */}
 {restaurants.map((restaurant) =>{
-    console.log("i am " + restaurant.name);
+    return(
+    
     <RestaurantCards 
     key={restaurant._id}
     id = {restaurant._id}
     imgUrl = {restaurant.image}
     title = {restaurant.name}
     rating = {restaurant.rating}
-    genre = {restaurant.type}
+    category = {restaurant._type}
     address = {restaurant.address}
     short_description = {restaurant.short_description}
     dishes = {restaurant.dishes}
@@ -79,7 +80,7 @@ console.log(restaurants);
     lat = {restaurant.lat}
    
    />
-
+    );
 })}
 
 {/* <RestaurantCards 
