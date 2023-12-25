@@ -10,6 +10,11 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 import PreparingOrderScreen from './screens/PrepareOrderScreen';
 import DeliveryScreen from './screens/DeliveryScreen';
+import LoginScreen from './screens/Login';
+
+import SignUpScreen from './screens/SignUp';
+import SearchScreen from './screens/searchScreen';
+
 
 
 
@@ -22,7 +27,10 @@ export default function App() {
     <NavigationContainer>
       <Provider store={store}>
       <Stack.Navigator>
+        {/* <Stack.Screen name='SignupScreen' component={SignUpScreen}/> */}
+        <Stack.Screen name='LoginScreen' component={LoginScreen}/>
         <Stack.Screen name = "HomeScreen" component={HomeScreen}/>
+        <Stack.Screen name="SearchScreen" component={SearchScreen}/>
         <Stack.Screen name = "Restaurant" component={RestaurantScreen}/>
         <Stack.Screen name = "Basket" component={BasketScreen}
         options={{presentation : "modal", headerShown:false}}

@@ -64,6 +64,7 @@ console.log(restaurants);
         >
 {/* Restaurant cards... */}
 {restaurants.map((restaurant) =>{
+    console.log(restaurant.long);
     return(
     
     <RestaurantCards 

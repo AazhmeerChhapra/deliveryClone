@@ -45,7 +45,13 @@ const RestaurantScreen = () => {
             long,
             lat,
         })
-        );
+        )
+        
+        global.latitude = lat;
+        global.longitude = long;
+        console.log("i am", global.longitude);
+
+        ;
     }, [dispatch])
     useLayoutEffect(() => {
         navigation.setOptions({

@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRestaurant } from "../features/restaurantSlice";
@@ -23,6 +23,9 @@ const BasketScreen = () => {
     const basketTotal = useSelector(selectBasketTotal)
     const [groupedItemsInBasket, setGroupedItemsInBasket] = useState([]);
     const dispatch = useDispatch();
+    useEffect(() => {
+        console.log(restaurant.lat);
+    })
 
     useMemo(() => {
         const groupedItems = items.reduce((results, item) => {

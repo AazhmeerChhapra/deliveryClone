@@ -1,21 +1,36 @@
-import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "react-native-animatable";
 import { useSelector } from "react-redux";
 import { selectRestaurant } from "../features/restaurantSlice";
 import { SafeAreaView, TouchableOpacity } from "react-native";
 import { XMarkIcon } from "react-native-heroicons/solid";
 import * as Progress from 'react-native-progress';
-import MapView , {Marker} from 'react-native-maps';
+import {GOOGLE_MAPS_API_KEY} from "@env";
+import MapView, {Marker} from 'react-native-maps';
+import * as Location from "expo-location";
+import MapViewDirections from 'react-native-maps-directions';
+
+
 
 
 
 const DeliveryScreen = () => {
     const navigation = useNavigation();
-    const restaurant = useSelector(selectRestaurant)
-    console.log(restaurant.lat)
-    console.log(restaurant.long)
+    const restaurant = useSelector(selectRestaurant);
 
+    const restaurant_lat = global.latitude;
+    const restaurant_long = global.longitude;
+    const route = useRoute();
+    const currentLocation = global.currentLocation;
+    const [initialRegion, setInitialRegion] = useState(null);
+
+    const origin = { latitude: restaurant_lat, longitude: restaurant_long }; // Replace with your origin coordinates
+    const destination = { latitude:currentLocation.latitude , longitude: currentLocation.longitude }; // Replace with your destination coordinates
+  
+    useEffect(() => {
+        console.log("hello",restaurant.long);
+    })
     return ( 
         <View className = "bg-[#00CCBB] flex-1">
             <SafeAreaView className = "z-50">
@@ -42,6 +57,7 @@ const DeliveryScreen = () => {
                 <Text className = "mt-3 text-gray-500">Your order is being prepared at {restaurant.title}</Text>
                 </View>
             </SafeAreaView>
+
             <MapView initialRegion={
                 {
                     latitude: restaurant.lat,
@@ -53,6 +69,18 @@ const DeliveryScreen = () => {
             mapType="mutedStandard"
             className = "flex-1 -mt-10 z-0"
             >
+                {restaurant && (
+                <MapViewDirections 
+                origin={origin}
+                destination= {destination}
+                apikey={GOOGLE_MAPS_API_KEY}
+                strokeWidth={3}
+                strokeColor="black"
+
+                />
+
+                )}
+                {restaurant && (
                 <Marker 
                  coordinate={{
                     latitude: restaurant.lat,
@@ -61,6 +89,17 @@ const DeliveryScreen = () => {
                  title={restaurant.title}
                  description={restaurant.short_description}
                  identifier="origin"
+                 pinColor="#00CCBB"
+                />
+                )}
+                <Marker 
+                 coordinate={{
+                    latitude: currentLocation.latitude,
+                    longitude : currentLocation.longitude,
+                 }}
+                 title="Your Location"
+                 description= "Your current location"
+                 identifier="destination"
                  pinColor="#00CCBB"
                 />
             </MapView>
